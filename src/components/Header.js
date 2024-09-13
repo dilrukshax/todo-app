@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import { AppBar, Toolbar, Typography, Button, Box, IconButton  } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box, IconButton } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../AuthContext';
-import LogoutIcon from '@mui/icons-material/Logout'; 
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);

@@ -17,7 +17,9 @@ import {
   Card,
   CardContent,
   ButtonGroup,
-  Box
+  Box,
+  useMediaQuery,
+  useTheme
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -31,6 +33,9 @@ const TodoList = () => {
   const [editingTodo, setEditingTodo] = useState(null);
   const [isEditOpen, setEditOpen] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
+
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const validationSchema = Yup.object({
     title: Yup.string().required('Required'),
@@ -85,6 +90,7 @@ const TodoList = () => {
         maxWidth: '600px',
         marginTop: '20px',
         marginBottom: '20px',
+        padding: isSmallScreen ? '10px' : '20px',
       }}
     >
       <Typography variant="h4" gutterBottom align="center">Todo List</Typography>
@@ -93,9 +99,8 @@ const TodoList = () => {
         Add Todo
       </Button>
 
-
       <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 3, width: '100%' }}>
-        <ButtonGroup variant="contained" sx={{ width: '300px' }}>
+        <ButtonGroup variant="contained" sx={{ width: isSmallScreen ? '100%' : '300px' }}>
           <Button
             onClick={() => setShowCompleted(false)}
             sx={{ backgroundColor: !showCompleted ? 'purple' : '#a64ea6', width: '50%' }}
@@ -114,7 +119,7 @@ const TodoList = () => {
       {todos.length === 0 ? (
         <Typography variant="h6" align="center">No any todos</Typography>
       ) : showCompleted ? (
-        <Box width="50%">
+        <Box width={isSmallScreen ? '100%' : '50%'}>
           {completedTodos.length === 0 ? (
             <Typography variant="h6" align="center">No any completed todos</Typography>
           ) : (
@@ -147,12 +152,12 @@ const TodoList = () => {
                             '&.Mui-checked': {
                               color: '#800080',
                             },
-                            }}
+                          }}
                         />
                         <ListItemText
                           primary={<strong>{todo.title}</strong>}
                           secondary={todo.description}
-                          sx={{ textDecoration: 'line-through', marginRight: '5%'  }}
+                          sx={{ textDecoration: 'line-through', marginRight: '5%' }}
                         />
                       </ListItem>
                     </CardContent>
@@ -163,7 +168,7 @@ const TodoList = () => {
           )}
         </Box>
       ) : (
-        <Box width="50%">
+        <Box width={isSmallScreen ? '100%' : '50%'}>
           {incompleteTodos.length === 0 ? (
             <Typography variant="h6" align="center">No any todos</Typography>
           ) : (
@@ -172,39 +177,39 @@ const TodoList = () => {
                 const originalIndex = todos.findIndex(t => t === todo);
                 return (
                   <Card
-                  key={originalIndex}
-                  sx={{
-                    marginBottom: 2,
-                    border: '2px solid purple',
-                    borderRadius: 2,
-                    boxShadow: 3,
-                    backgroundColor: '#fff'
-                  }}>
-                  <CardContent>
-                    <ListItem
-                    secondaryAction={
-                      <>
-                      <IconButton edge="end" onClick={() => handleEditClick(originalIndex)} sx={{ margin: '1px', color: '#800080' }}>
-                        <EditIcon />
-                      </IconButton>
-                      <IconButton edge="end" onClick={() => handleDeleteTodo(originalIndex)} sx={{ color: '#800080' }}>
-                        <DeleteIcon />
-                      </IconButton>
-                      </>
-                    }
-                    >
-                    <Checkbox
-                      checked={todo.completed}
-                      onChange={() => handleToggleComplete(originalIndex)}
-                    />
-                    <ListItemText 
+                    key={originalIndex}
                     sx={{
-                      marginRight: '5%',
-                    }}
-                    primary={<strong>{todo.title}</strong>} 
-                    secondary={todo.description} />
-                    </ListItem>
-                  </CardContent>
+                      marginBottom: 2,
+                      border: '2px solid purple',
+                      borderRadius: 2,
+                      boxShadow: 3,
+                      backgroundColor: '#fff'
+                    }}>
+                    <CardContent>
+                      <ListItem
+                        secondaryAction={
+                          <>
+                            <IconButton edge="end" onClick={() => handleEditClick(originalIndex)} sx={{ margin: '1px', color: '#800080' }}>
+                              <EditIcon />
+                            </IconButton>
+                            <IconButton edge="end" onClick={() => handleDeleteTodo(originalIndex)} sx={{ color: '#800080' }}>
+                              <DeleteIcon />
+                            </IconButton>
+                          </>
+                        }
+                      >
+                        <Checkbox
+                          checked={todo.completed}
+                          onChange={() => handleToggleComplete(originalIndex)}
+                        />
+                        <ListItemText
+                          sx={{
+                            marginRight: '5%',
+                          }}
+                          primary={<strong>{todo.title}</strong>}
+                          secondary={todo.description} />
+                      </ListItem>
+                    </CardContent>
                   </Card>
                 );
               })}

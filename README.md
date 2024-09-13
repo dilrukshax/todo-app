@@ -88,9 +88,17 @@ src/
 
 ## Screenshots
 
-![Screenshot 2024-09-13 131715](https://github.com/user-attachments/assets/e0d4861b-c4ae-419f-bab3-81002192421f)<br>
+![Screenshot_13-9-2024_163453_localhost](https://github.com/user-attachments/assets/dbe3c2db-6dd7-4fb8-b3ce-cc08cdb57a48)
+<br>
 
-![Screenshot 2024-09-13 132020](https://github.com/user-attachments/assets/435a8194-8c97-478f-9aa3-248f4cc3545f)
+![Screenshot_13-9-2024_163437_localhost](https://github.com/user-attachments/assets/104b2a1b-780e-4835-bfd1-f7965919e00c)
+<br>
+
+![Screenshot 2024-09-13 165055](https://github.com/user-attachments/assets/58f232e5-af6d-4d97-bd4e-5d86c7318058)
+<br>
+
+![Screenshot 2024-09-13 165121](https://github.com/user-attachments/assets/896e7d3c-a82a-4969-bfc1-62826c6064b9)
+
 
 
 

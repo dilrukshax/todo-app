@@ -1,7 +1,8 @@
 import React, { useContext } from 'react';
-import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box, IconButton  } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../AuthContext';
+import LogoutIcon from '@mui/icons-material/Logout'; 
 
 const Header = () => {
   const { user, logout } = useContext(AuthContext);
@@ -16,9 +17,9 @@ const Header = () => {
     <AppBar position="static" sx={{ backgroundColor: 'purple' }}>
       <Toolbar>
         <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-          <Typography variant="h6">Todo App</Typography>
+          <Typography variant="h5">Todo App</Typography>
           {user && (
-            <Typography variant="subtitle1" sx={{ marginLeft: 2 }}>
+            <Typography variant="subtitle1" sx={{ marginLeft: 2, alignItems: 'end' }}>
               Welcome, {user.name}
             </Typography>
           )}
@@ -35,11 +36,12 @@ const Header = () => {
         ) : (
           <>
             <Button color="inherit" component={Link} to="/dashboard">
-              Dashboard
+              My Todos
             </Button>
-            <Button color="inherit" onClick={handleLogout}>
-              Logout
-            </Button>
+            <IconButton color="inherit" onClick={handleLogout}>
+              <LogoutIcon sx={{ fontSize: 'small', marginRight: 1 }} />
+              <Typography variant="body2">Logout</Typography>
+            </IconButton>
           </>
         )}
       </Toolbar>

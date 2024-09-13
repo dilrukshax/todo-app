@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { TextField, Button, Container, Typography } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, Link } from '@mui/material';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import AuthContext from '../AuthContext';
@@ -30,42 +30,61 @@ const Login = () => {
 
   return (
     <Container maxWidth="xs" sx={{ marginTop: 8 }}>
-      <Typography variant="h4" gutterBottom>Login</Typography>
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          label="Email"
-          variant="outlined"
-          fullWidth
-          {...formik.getFieldProps('email')}
-          error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
-          style={{ marginBottom: '20px' }}
-        />
-        <TextField
-          label="Password"
-          variant="outlined"
-          type="password"
-          fullWidth
-          {...formik.getFieldProps('password')}
-          error={formik.touched.password && Boolean(formik.errors.password)}
-          helperText={formik.touched.password && formik.errors.password}
-          style={{ marginBottom: '20px' }}
-        />
-        {formik.errors.general && (
-          <Typography color="error" style={{ marginBottom: '10px' }}>
-            {formik.errors.general}
-          </Typography>
-        )}
-        <Button
-          variant="contained"
-          type="submit"
-          fullWidth
-          sx={{ backgroundColor: 'purple' }}
-          disabled={formik.isSubmitting}
-        >
-          Login
-        </Button>
-      </form>
+      <Box
+        sx={{
+          padding: 4,
+          border: '2px solid purple',  
+          borderRadius: 2,
+          boxShadow: 3,  
+          backgroundColor: '#fff',
+          width: '100%',
+          margin: 'auto',
+        }}
+      >
+        <Typography variant="h4" gutterBottom align="center" fontWeight= "bold" >Login</Typography>
+        <form onSubmit={formik.handleSubmit}>
+          <TextField
+            label="Email"
+            variant="outlined"
+            fullWidth
+            {...formik.getFieldProps('email')}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+            sx={{ marginBottom: 2 }}
+          />
+          <TextField
+            label="Password"
+            variant="outlined"
+            type="password"
+            fullWidth
+            {...formik.getFieldProps('password')}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
+            sx={{ marginBottom: 2 }}
+          />
+          {formik.errors.general && (
+            <Typography color="error" sx={{ marginBottom: 2 }}>
+              {formik.errors.general}
+            </Typography>
+          )}
+          <Button
+            variant="contained"
+            type="submit"
+            fullWidth
+            sx={{ backgroundColor: 'purple', marginBottom: 2, height: 56, fontWeight: 'bold' , fontSize: 18}}
+            disabled={formik.isSubmitting}
+          >
+            Login
+          </Button>
+        </form>
+
+        <Typography align="center" variant="body2" sx={{ marginTop: 2 }}>
+          Don't have an account?{' '}
+          <Link href="/register" color="primary">
+            Register
+          </Link>
+        </Typography>
+      </Box>
     </Container>
   );
 };

@@ -28,9 +28,9 @@ const TodoList = () => {
   const { user, saveTodos } = useContext(AuthContext);
   const [todos, setTodos] = useState(user ? user.todos : []);
   const [isAddOpen, setAddOpen] = useState(false);
-  const [editingTodo, setEditingTodo] = useState(null); // Holds both todo data and index
+  const [editingTodo, setEditingTodo] = useState(null);
   const [isEditOpen, setEditOpen] = useState(false);
-  const [showCompleted, setShowCompleted] = useState(false); // Toggle for showing completed vs incomplete
+  const [showCompleted, setShowCompleted] = useState(false);
 
   const validationSchema = Yup.object({
     title: Yup.string().required('Required'),
@@ -71,17 +71,20 @@ const TodoList = () => {
     setEditOpen(false);
   };
 
+  const completedTodos = todos.filter(todo => todo.completed);
+  const incompleteTodos = todos.filter(todo => !todo.completed);
+
   return (
     <Container
       sx={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         alignItems: 'center',
         minHeight: '100vh',
-        maxWidth: '600px', // Limit the max width
+        maxWidth: '600px',
         marginTop: '20px',
-        marginBottom: '20px', // Add margin to the bottom
+        marginBottom: '20px',
       }}
     >
       <Typography variant="h4" gutterBottom align="center">Todo List</Typography>
@@ -90,7 +93,7 @@ const TodoList = () => {
         Add Todo
       </Button>
 
-      {/* Centered ButtonGroup with margin and width adjustment */}
+
       <Box sx={{ display: 'flex', justifyContent: 'center', marginBottom: 3, width: '100%' }}>
         <ButtonGroup variant="contained" sx={{ width: '300px' }}>
           <Button
@@ -108,93 +111,105 @@ const TodoList = () => {
         </ButtonGroup>
       </Box>
 
-      {/* Conditional Rendering of Todos */}
-      {showCompleted ? (
-        <Box width="50%"> {/* Limit width for better UX */}
-          <Typography variant="h6" align="center">Completed Todos</Typography>
-          <List sx={{ width: '100%' }}>
-            {todos.filter(todo => todo.completed).map((todo) => {
-              const originalIndex = todos.findIndex(t => t === todo);
-              return (
-                <Card
-                  key={originalIndex}
-                  sx={{
-                    marginBottom: 2,
-                    border: '2px solid purple',
-                    borderRadius: 2,
-                    boxShadow: 3,
-                    backgroundColor: '#fff'
-                  }}>
-                  <CardContent>
-                    <ListItem
-                      secondaryAction={
-                        <IconButton edge="end" onClick={() => handleDeleteTodo(originalIndex)}>
-                          <DeleteIcon />
-                        </IconButton>
-                      }
-                    >
-                      <Checkbox
-                        checked={todo.completed}
-                        onChange={() => handleToggleComplete(originalIndex)}
-                      />
-                      <ListItemText
-                        primary={todo.title}
-                        secondary={todo.description}
-                        sx={{ textDecoration: 'line-through' }}
-                      />
-                    </ListItem>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </List>
-        </Box>
-      ) : (
-        <Box width="50%"> {/* Limit width for better UX */}
-          <Typography variant="h6" align="center">Incomplete Todos</Typography>
-          <List sx={{ width: '100%' }}>
-            {todos.filter(todo => !todo.completed).map((todo) => {
-              const originalIndex = todos.findIndex(t => t === todo);
-              return (
-                <Card
-                  key={originalIndex}
-                  sx={{
-                    marginBottom: 2,
-                    border: '2px solid purple',
-                    borderRadius: 2,
-                    boxShadow: 3,
-                    backgroundColor: '#fff'
-                  }}>
-                  <CardContent>
-                    <ListItem
-                      secondaryAction={
-                        <>
-                          <IconButton edge="end" onClick={() => handleEditClick(originalIndex)}>
-                            <EditIcon />
-                          </IconButton>
-                          <IconButton edge="end" onClick={() => handleDeleteTodo(originalIndex)}>
+      {todos.length === 0 ? (
+        <Typography variant="h6" align="center">No any todos</Typography>
+      ) : showCompleted ? (
+        <Box width="50%">
+          {completedTodos.length === 0 ? (
+            <Typography variant="h6" align="center">No any completed todos</Typography>
+          ) : (
+            <List sx={{ width: '100%' }}>
+              {completedTodos.map((todo) => {
+                const originalIndex = todos.findIndex(t => t === todo);
+                return (
+                  <Card
+                    key={originalIndex}
+                    sx={{
+                      marginBottom: 2,
+                      border: '2px solid purple',
+                      borderRadius: 2,
+                      boxShadow: 3,
+                      backgroundColor: '#fff'
+                    }}>
+                    <CardContent>
+                      <ListItem
+                        secondaryAction={
+                          <IconButton edge="end" onClick={() => handleDeleteTodo(originalIndex)} sx={{ color: 'red' }}>
                             <DeleteIcon />
                           </IconButton>
-                        </>
-                      }
+                        }
+                      >
+                        <Checkbox
+                          checked={todo.completed}
+                          onChange={() => handleToggleComplete(originalIndex)}
+                        />
+                        <ListItemText
+                          primary={<strong>{todo.title}</strong>}
+                          secondary={todo.description}
+                          sx={{ textDecoration: 'line-through', marginRight: '5%'  }}
+                        />
+                      </ListItem>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </List>
+          )}
+        </Box>
+      ) : (
+        <Box width="50%">
+          {incompleteTodos.length === 0 ? (
+            <Typography variant="h6" align="center">No any todos</Typography>
+          ) : (
+            <List sx={{ width: '100%' }}>
+              {incompleteTodos.map((todo) => {
+                const originalIndex = todos.findIndex(t => t === todo);
+                return (
+                  <Card
+                  key={originalIndex}
+                  sx={{
+                    marginBottom: 2,
+                    border: '2px solid purple',
+                    borderRadius: 2,
+                    boxShadow: 3,
+                    backgroundColor: '#fff'
+                  }}>
+                  <CardContent>
+                    <ListItem
+                    secondaryAction={
+                      <>
+                      <IconButton edge="end" onClick={() => handleEditClick(originalIndex)} sx={{ margin: '1px', color: 'blue' }}>
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton edge="end" onClick={() => handleDeleteTodo(originalIndex)} sx={{ color: 'red' }}>
+                        <DeleteIcon />
+                      </IconButton>
+                      </>
+                    }
                     >
-                      <Checkbox
-                        checked={todo.completed}
-                        onChange={() => handleToggleComplete(originalIndex)}
-                      />
-                      <ListItemText primary={todo.title} secondary={todo.description} />
+                    <Checkbox
+                      checked={todo.completed}
+                      onChange={() => handleToggleComplete(originalIndex)}
+                    />
+                    <ListItemText 
+                    sx={{
+                      marginRight: '5%',
+                    }}
+                    primary={<strong>{todo.title}</strong>} 
+                    secondary={todo.description} />
                     </ListItem>
                   </CardContent>
-                </Card>
-              );
-            })}
-          </List>
+                  </Card>
+                );
+              })}
+            </List>
+          )}
         </Box>
       )}
 
       {/* Add Todo Dialog */}
       <Dialog open={isAddOpen} onClose={() => setAddOpen(false)} maxWidth="sm" fullWidth>
-        <DialogTitle>Add Todo</DialogTitle>
+        <DialogTitle>New Todo</DialogTitle>
         <DialogContent>
           <Formik
             initialValues={{ title: '', description: '' }}
@@ -211,7 +226,16 @@ const TodoList = () => {
                   fullWidth
                   error={touched.title && Boolean(errors.title)}
                   helperText={touched.title && errors.title}
-                  style={{ marginBottom: '20px' }}
+                  sx={{
+                    marginBottom: '20px',
+                    marginTop: '20px',
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'purple',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      color: 'purple',
+                    },
+                  }}
                 />
                 <Field
                   as={TextField}
@@ -219,12 +243,23 @@ const TodoList = () => {
                   label="Description"
                   variant="outlined"
                   fullWidth
+                  multiline
+                  rows={4}
                   error={touched.description && Boolean(errors.description)}
                   helperText={touched.description && errors.description}
-                  style={{ marginBottom: '20px' }}
+                  sx={{
+                    marginBottom: '20px',
+                    marginTop: '20px',
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'purple',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      color: 'purple',
+                    },
+                  }}
                 />
                 <DialogActions>
-                  <Button onClick={() => setAddOpen(false)}>Cancel</Button>
+                  <Button onClick={() => setAddOpen(false)} sx={{ color: 'purple' }}>Cancel</Button>
                   <Button type="submit" variant="contained" sx={{ backgroundColor: 'purple' }}>Add</Button>
                 </DialogActions>
               </Form>
@@ -253,7 +288,16 @@ const TodoList = () => {
                   fullWidth
                   error={touched.title && Boolean(errors.title)}
                   helperText={touched.title && errors.title}
-                  style={{ marginBottom: '20px' }}
+                  sx={{
+                    marginBottom: '20px',
+                    marginTop: '20px',
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'purple',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      color: 'purple',
+                    },
+                  }}
                 />
                 <Field
                   as={TextField}
@@ -261,12 +305,23 @@ const TodoList = () => {
                   label="Description"
                   variant="outlined"
                   fullWidth
+                  multiline
+                  rows={4}
                   error={touched.description && Boolean(errors.description)}
                   helperText={touched.description && errors.description}
-                  style={{ marginBottom: '20px' }}
+                  sx={{
+                    marginBottom: '20px',
+                    marginTop: '20px',
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'purple',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      color: 'purple',
+                    },
+                  }}
                 />
                 <DialogActions>
-                  <Button onClick={() => setEditOpen(false)}>Cancel</Button>
+                  <Button onClick={() => setEditOpen(false)} sx={{ color: 'purple' }}>Cancel</Button>
                   <Button type="submit" variant="contained" sx={{ backgroundColor: 'purple' }}>Save</Button>
                 </DialogActions>
               </Form>

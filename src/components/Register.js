@@ -14,7 +14,7 @@ const Register = () => {
       name: '',
       email: '',
       password: '',
-      confirmPassword: '',  // Added re-enter password field
+      confirmPassword: '',  
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Name is required'),
@@ -56,7 +56,12 @@ const Register = () => {
             {...formik.getFieldProps('name')}
             error={formik.touched.name && Boolean(formik.errors.name)}
             helperText={formik.touched.name && formik.errors.name}
-            sx={{ marginBottom: 2 }}
+            sx={{ marginBottom: 2, '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'purple',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      color: 'purple',
+                    }, }}
           />
           <TextField
             label="Email"
@@ -65,7 +70,12 @@ const Register = () => {
             {...formik.getFieldProps('email')}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-            sx={{ marginBottom: 2 }}
+            sx={{ marginBottom: 2, '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'purple',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      color: 'purple',
+                    }, }}
           />
           <TextField
             label="Password"
@@ -75,7 +85,12 @@ const Register = () => {
             {...formik.getFieldProps('password')}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
-            sx={{ marginBottom: 2 }}
+            sx={{ marginBottom: 2, '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'purple',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      color: 'purple',
+                    }, }}
           />
           <TextField
             label="Re-enter Password"
@@ -85,7 +100,12 @@ const Register = () => {
             {...formik.getFieldProps('confirmPassword')}
             error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
             helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-            sx={{ marginBottom: 2 }}
+            sx={{ marginBottom: 2, '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'purple',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      color: 'purple',
+                    }, }}
           />
           {formik.errors.general && (
             <Typography color="error" sx={{ marginBottom: 2 }}>
@@ -105,7 +125,7 @@ const Register = () => {
 
         <Typography align="center" variant="body2" sx={{ marginTop: 2 }}>
           Already have an account?{' '}
-          <Link href="/login" color="primary">
+          <Link href="/login" color="#800080">
             Login
           </Link>
         </Typography>

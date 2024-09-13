@@ -17,7 +17,7 @@ const Header = () => {
     <AppBar position="static" sx={{ backgroundColor: 'purple' }}>
       <Toolbar>
         <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
-          <Typography variant="h5">Todo App</Typography>
+          <Typography variant="h5">To-Do App</Typography>
           {user && (
             <Typography variant="subtitle1" sx={{ marginLeft: 2, alignItems: 'end' }}>
               Welcome, {user.name}
@@ -36,7 +36,7 @@ const Header = () => {
         ) : (
           <>
             <Button color="inherit" component={Link} to="/dashboard">
-              My Todos
+              My To-do
             </Button>
             <IconButton color="inherit" onClick={handleLogout}>
               <LogoutIcon sx={{ fontSize: 'small', marginRight: 1 }} />

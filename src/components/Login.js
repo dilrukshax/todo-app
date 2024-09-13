@@ -50,7 +50,12 @@ const Login = () => {
             {...formik.getFieldProps('email')}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-            sx={{ marginBottom: 2 }}
+            sx={{ marginBottom: 2, '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'purple',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      color: 'purple',
+                    }, }}
           />
           <TextField
             label="Password"
@@ -60,7 +65,12 @@ const Login = () => {
             {...formik.getFieldProps('password')}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
-            sx={{ marginBottom: 2 }}
+            sx={{ marginBottom: 2, '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: 'purple',
+                    },
+                    '& .MuiInputLabel-root.Mui-focused': {
+                      color: 'purple',
+                    }, }}
           />
           {formik.errors.general && (
             <Typography color="error" sx={{ marginBottom: 2 }}>
@@ -80,7 +90,7 @@ const Login = () => {
 
         <Typography align="center" variant="body2" sx={{ marginTop: 2 }}>
           Don't have an account?{' '}
-          <Link href="/register" color="primary">
+          <Link href="/register" color="#800080">
             Register
           </Link>
         </Typography>

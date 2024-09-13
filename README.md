@@ -31,7 +31,7 @@ This is a **Todo App** built using **React** and **Material UI (MUI)** for the u
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/todo-app.git
+git clone https://github.com/dilrukshax/todo-app.git
 cd todo-app
 ```
 

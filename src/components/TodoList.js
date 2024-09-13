@@ -134,7 +134,7 @@ const TodoList = () => {
                     <CardContent>
                       <ListItem
                         secondaryAction={
-                          <IconButton edge="end" onClick={() => handleDeleteTodo(originalIndex)} sx={{ color: 'red' }}>
+                          <IconButton edge="end" onClick={() => handleDeleteTodo(originalIndex)} sx={{ color: '#800080' }}>
                             <DeleteIcon />
                           </IconButton>
                         }
@@ -142,6 +142,12 @@ const TodoList = () => {
                         <Checkbox
                           checked={todo.completed}
                           onChange={() => handleToggleComplete(originalIndex)}
+                          sx={{
+                            color: '#800080',
+                            '&.Mui-checked': {
+                              color: '#800080',
+                            },
+                            }}
                         />
                         <ListItemText
                           primary={<strong>{todo.title}</strong>}
@@ -178,10 +184,10 @@ const TodoList = () => {
                     <ListItem
                     secondaryAction={
                       <>
-                      <IconButton edge="end" onClick={() => handleEditClick(originalIndex)} sx={{ margin: '1px', color: 'blue' }}>
+                      <IconButton edge="end" onClick={() => handleEditClick(originalIndex)} sx={{ margin: '1px', color: '#800080' }}>
                         <EditIcon />
                       </IconButton>
-                      <IconButton edge="end" onClick={() => handleDeleteTodo(originalIndex)} sx={{ color: 'red' }}>
+                      <IconButton edge="end" onClick={() => handleDeleteTodo(originalIndex)} sx={{ color: '#800080' }}>
                         <DeleteIcon />
                       </IconButton>
                       </>
